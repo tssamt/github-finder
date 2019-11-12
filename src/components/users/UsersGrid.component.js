@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import UserGridItem from './UserGridItem.component';
 import Spinner from '../layout/Spinner.component';
+import GithubContext from '../../context/github/githubContext';
 
 export default function UsersGrid(props) {
-  const { loading, users } = props;
+  const githubContext = useContext(GithubContext);
+  const { users, loading } = githubContext;
 
   const renderUser = () => {
     return users && users.length ? (

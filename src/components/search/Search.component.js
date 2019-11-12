@@ -1,46 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState, useContext } from 'react';
 
-export default class Search extends Component {
-  state = {
-    username: '',
-  };
+import GithubContext from '../../context/github/githubContext';
 
-  mapInputToState = (e) => this.setState({ [e.target.name]: e.target.value });
+export default function Search({ searchUsers }) {
+  const [username, setUsername] = useState('');
+  const githubContext = useContext(GithubContext);
 
-  onSearchClick = () => {
-    if (this.state.username) {
-      this.props.searchUsers(this.state.username);
-      this.setState({ username: '' });
+  const onSearchClick = () => {
+    if (username) {
+      githubContext.searchUsers(username);
     }
   };
 
-  render() {
-    return (
-      <div>
-        <div className="container" style={{ marginTop: '15px' }}>
-          <div className="form-horizontal">
-            <div className="form-group">
-              <div className="column col-10">
-                <input
-                  name="username"
-                  className="form-input"
-                  type="text"
-                  placeholder="Github user name.."
-                  onChange={this.mapInputToState}
-                />
-              </div>
-              <div className="column col-2">
-                <button
-                  className="btn btn-primary btn-block"
-                  onClick={this.onSearchClick}
-                >
-                  Search
-                </button>
-              </div>
+  return (
+    <div>
+      <div className="container">
+        <div className="form-horizontal">
+          <div className="form-group">
+            <div className="column col-10">
+              <input
+                name="username"
+                className="form-input"
+                type="text"
+                placeholder="Github user name.."
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <div className="column col-2">
+              <button
+                className="btn btn-primary btn-block"
+                onClick={onSearchClick}
+              >
+                Search
+              </button>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }

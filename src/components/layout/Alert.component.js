@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import HocExp from '../../HOC/withExp.hoc';
 
-function Alert({ alert, setAlert }) {
+import GithubContext from '../../context/github/githubContext';
+
+function Alert() {
+  const githubContext = useContext(GithubContext);
+  const { alert, removeAlert } = githubContext;
   const { type, message } = alert;
-  return alert.message ? (
+  console.log(alert);
+  return message ? (
     <div className="container">
       <div className="columns">
         <div className="column col-12">
           <div className={`toast toast-${type}`}>
             <button
               className="btn btn-clear float-right"
-              onClick={setAlert()}
+              onClick={() => removeAlert()}
             ></button>
             {message}
           </div>
@@ -32,4 +36,4 @@ Alert.defaultProps = {
   type: 'primary',
 };
 
-export default HocExp(Alert);
+export default Alert;

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function UserGridItem(props) {
   const { user } = props;
+
   return (
     <div className="card" style={style.cardStyle}>
       <div className="card-image">
